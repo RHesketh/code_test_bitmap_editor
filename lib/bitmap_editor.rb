@@ -1,1 +1,0 @@
-require 'bitmap_editor/input_handler.rb'

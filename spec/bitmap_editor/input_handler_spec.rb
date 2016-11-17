@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'bitmap_editor/input_handler'
+require './app/input_handler'
 
 describe 'InputHandler' do
   let (:handler) { InputHandler.new }
