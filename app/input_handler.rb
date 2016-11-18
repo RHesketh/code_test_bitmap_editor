@@ -1,4 +1,10 @@
+require './app/canvas'
+
 class InputHandler
+  def initialize(options = {})
+    @canvas = options[:canvas] || Canvas.new
+  end
+
   def parse(input)
     command, *arguments = input.split(" ")
 
@@ -8,6 +14,8 @@ class InputHandler
         puts "ERROR: invalid argument(s)"
         puts "  Valid format is `I [x] [y]`"
         puts "  E.g. `I 5 5`"
+      else
+        create_new_image(arguments)
       end
     else
       puts "unrecognised command :("
@@ -15,6 +23,14 @@ class InputHandler
   end
 
   private
+
+  # Command: I
+  def create_new_image(arguments)
+    width = arguments[0].to_i
+    height = arguments[1].to_i
+
+    @canvas.new_image(width, height)
+  end
 
   def new_image_arguments_are_invalid?(arguments)
     return true if arguments.length != 2
