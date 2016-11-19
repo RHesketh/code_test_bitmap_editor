@@ -6,8 +6,8 @@ class Canvas
   @image = nil
 
   def new_image(width, height)
-    raise ArgumentError.new("Invalid argument(s). Width and height must be between #{MIN_SIZE}-#{MAX_SIZE}") if width < MIN_SIZE || width > MAX_SIZE || height < MIN_SIZE || height > MAX_SIZE
-    raise ArgumentError.new("Invalid argument(s). Width and height must both be integers.") unless width.is_a?(Integer) && height.is_a?(Integer)
+    raise ArgumentError.new("Width and height must be between #{MIN_SIZE}-#{MAX_SIZE}") if width < MIN_SIZE || width > MAX_SIZE || height < MIN_SIZE || height > MAX_SIZE
+    raise ArgumentError.new("Width and height must both be integers.") unless width.is_a?(Integer) && height.is_a?(Integer)
     @image = blank_canvas(width, height)
   end
 

@@ -20,7 +20,7 @@ describe 'InputHandler' do
         input_handler.parse("I 5 5")
       end
 
-      it "creates a new canvas upon instantiation if this option is nil" do
+      it "creates a new canvas upon instantiation if nil" do
         expect(Canvas).to receive(:new).and_call_original
 
         handler.parse("I 5 5")
@@ -29,8 +29,8 @@ describe 'InputHandler' do
   end
 
   context "When the command is not recognised" do
-    it "outputs a warning" do
-      expect { handler.parse("F") }.to output(/unrecognised command :\(/).to_stdout
+    it "displays a meaningful error message to the user" do
+      expect { handler.parse("F") }.to output(/unrecognised command :\(/).to_stderr
     end
   end
 
@@ -52,29 +52,26 @@ describe 'InputHandler' do
       end
     end
 
-    context "with invalid image dimensions" do
-      xit "does not raise an error"
-      xit "outputs a useful error message"
-    end
-
     context "With not enough arguments" do
-      it "outputs an error" do
-        expect { handler.parse("I") }.to output(/invalid argument\(s\)/).to_stdout
-        expect { handler.parse("I 5") }.to output(/invalid argument\(s\)/).to_stdout
+      it "displays a meaningful error message to the user" do
+        expect { handler.parse("I") }.to output(/invalid argument\(s\)/).to_stderr
+        expect { handler.parse("I 5") }.to output(/invalid argument\(s\)/).to_stderr
       end
     end
 
-    context "With too many arguments" do
+    context "displays a meaningful error message to the user" do
       it "outputs an error" do
-        expect { handler.parse("I 5 5 5") }.to output(/invalid argument\(s\)/).to_stdout
+        expect { handler.parse("I 5 5 5") }.to output(/invalid argument\(s\)/).to_stderr
       end
     end
 
-    context "With arguments that are not integers" do
-      it "outputs an error" do
-        expect { handler.parse("I 5 Y") }.to output(/invalid argument\(s\)/).to_stdout
-        expect { handler.parse("I X 5") }.to output(/invalid argument\(s\)/).to_stdout
-        expect { handler.parse("I X Y") }.to output(/invalid argument\(s\)/).to_stdout
+    context "With arguments that raise an error" do
+      it "the error is handled" do
+        expect{handler.parse("I 251 251")}.not_to raise_error
+      end
+
+      it "a meaningful message is shown to the user" do
+        expect { handler.parse("I 251 251") }.to output(/Invalid argument\(s\)/).to_stderr
       end
     end
   end

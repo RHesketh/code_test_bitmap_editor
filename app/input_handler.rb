@@ -6,19 +6,23 @@ class InputHandler
   end
 
   def parse(input)
-    command, *arguments = input.split(" ")
+    begin
+      command, *arguments = input.split(" ")
 
-    case command
-    when "I"
-      if new_image_arguments_are_invalid?(arguments)
-        puts "ERROR: invalid argument(s)"
-        puts "  Valid format is `I [x] [y]`"
-        puts "  E.g. `I 5 5`"
+      case command
+      when "I"
+        if new_image_arguments_are_invalid?(arguments)
+          $stderr.puts "ERROR: invalid argument(s)"
+          $stderr.puts "  Valid format is `I [x] [y]`"
+          $stderr.puts "  E.g. `I 5 5`"
+        else
+          create_new_image(arguments)
+        end
       else
-        create_new_image(arguments)
+        $stderr.puts "unrecognised command :("
       end
-    else
-      puts "unrecognised command :("
+    rescue ArgumentError => e
+      $stderr.puts "Invalid argument(s): #{e.message}"
     end
   end
 
