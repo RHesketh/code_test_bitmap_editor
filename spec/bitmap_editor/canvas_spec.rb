@@ -30,8 +30,23 @@ describe 'Canvas' do
       expect(subject.render).to eq comparison.string
     end
 
-    xit "raises an error if the canvas is less than 1 pixel wide or 1 pixel high"
-    xit "raises an error if the canvas is more than 250 pixel wide or 250 pixels high"
+    it "raises an error if the canvas is less than 1 pixel wide or 1 pixel high" do
+      expect{subject.new_image( 0,  0)}.to raise_error(ArgumentError)
+      expect{subject.new_image(-1,  1)}.to raise_error(ArgumentError)
+      expect{subject.new_image( 1, -1)}.to raise_error(ArgumentError)
+
+    end
+    it "raises an error if the canvas is more than 250 pixel wide or 250 pixels high" do 
+      expect{subject.new_image( 251,  251)}.to raise_error(ArgumentError)
+      expect{subject.new_image(251,  5)}.to raise_error(ArgumentError)
+      expect{subject.new_image( 5, 251)}.to raise_error(ArgumentError)
+    end
+
+    it "raises an error if the width and height are not integers" do 
+      expect{subject.new_image(1, "A")}.to raise_error(ArgumentError)
+      expect{subject.new_image("A", 1)}.to raise_error(ArgumentError)
+      expect{subject.new_image(6.6, 1)}.to raise_error(ArgumentError)
+    end
   end
 
   describe "#render" do 
