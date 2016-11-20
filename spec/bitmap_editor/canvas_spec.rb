@@ -102,7 +102,7 @@ describe 'Canvas' do
 
   describe "#draw_vertical_line" do 
     before(:each) do
-      subject.new_image(5, 5)
+      subject.new_image(5, 6)
     end
 
     it "responds to :draw_vertical_line" do 
@@ -117,10 +117,10 @@ describe 'Canvas' do
     end
 
     it "raises an error if any co-ordinate is beyond the image bounds" do
-      expect{subject.draw_vertical_line(6, 6, 6, "K")}.to raise_error(ArgumentError)
-      expect{subject.draw_vertical_line(6, 5, 5, "K")}.to raise_error(ArgumentError)
-      expect{subject.draw_vertical_line(5, 6, 5, "K")}.to raise_error(ArgumentError)
-      expect{subject.draw_vertical_line(5, 5, 6, "K")}.to raise_error(ArgumentError)
+      expect{subject.draw_vertical_line(7, 7, 7, "K")}.to raise_error(ArgumentError)
+      expect{subject.draw_vertical_line(7, 6, 6, "K")}.to raise_error(ArgumentError)
+      expect{subject.draw_vertical_line(6, 7, 6, "K")}.to raise_error(ArgumentError)
+      expect{subject.draw_vertical_line(6, 6, 7, "K")}.to raise_error(ArgumentError)
     end
 
     it "raises an error if any coordinates are not integers" do 
