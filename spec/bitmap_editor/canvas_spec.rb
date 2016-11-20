@@ -49,6 +49,57 @@ describe 'Canvas' do
     end
   end
 
+  describe "#set_pixel" do
+    before(:each) do
+      subject.new_image(5, 5)
+    end
+    it "responds to :set_pixel" do 
+      expect(subject.respond_to?(:set_pixel)).to eq(true)
+    end
+
+    it "raises an error if x or y is less than 1" do
+      expect{subject.set_pixel( 0,  0, "K")}.to raise_error(ArgumentError)
+      expect{subject.set_pixel(-1,  1, "K")}.to raise_error(ArgumentError)
+      expect{subject.set_pixel( 1, -1, "K")}.to raise_error(ArgumentError)
+    end
+
+    # The image is 1-indexed
+    it "raises an error if x is greater than image width or y is greater than image height" do
+      expect{subject.set_pixel(6, 5, "K")}.to raise_error(ArgumentError)
+      expect{subject.set_pixel(6, 2, "K")}.to raise_error(ArgumentError)
+      expect{subject.set_pixel(2, 6, "K")}.to raise_error(ArgumentError)
+    end
+
+    it "raises an error if the width and height are not integers" do 
+      expect{subject.set_pixel(1, "A", "K")}.to raise_error(ArgumentError)
+      expect{subject.set_pixel("A", 1, "K")}.to raise_error(ArgumentError)
+      expect{subject.set_pixel(6.6, 1, "K")}.to raise_error(ArgumentError)
+    end
+
+    it "raises an error if the colour is not a capital letter" do 
+      expect{subject.set_pixel(1, 1, "k")}.to raise_error(ArgumentError)
+      expect{subject.set_pixel(1, 1, 1)}.to raise_error(ArgumentError)
+    end
+
+    it "quietly do nothing if called before an image has been created" do
+      imageless_subject = Canvas.new
+      expect{imageless_subject.set_pixel(1, 1, "A")}.not_to raise_error
+    end
+
+    it "sets the specified pixel to the specified colour" do
+      subject.set_pixel(2, 4, "B")
+
+      comparison = StringIO.new
+      comparison << "OOOOO\n"
+      comparison << "OOOOO\n"
+      comparison << "OOOOO\n"
+      comparison << "OBOOO\n"
+      comparison << "OOOOO\n"
+
+      expect(subject.render).to eq comparison.string
+    end
+  end
+
   describe "#render" do 
     it "returns a representation of the canvas as a string" do 
       subject.new_image(1,1)

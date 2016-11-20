@@ -77,4 +77,28 @@ describe 'InputHandler' do
       handler.parse("I #{width} #{height}")
     end
   end
+
+  # Set Pixel command (L)
+  
+  context "When the 'set pixel' command is given" do
+    let(:fake_canvas) { spy("Canvas") }
+    let(:handler) { InputHandler.new(fake_canvas)}
+
+    before(:each) do
+      handler.parse("I 5 5")
+    end
+
+    it "does not output anything" do
+       expect { handler.parse("L 3 3 T") }.to_not output.to_stdout
+    end
+
+    it "tells the canvas to set the pixel at the specified point to the specified colour" do
+      x = 3
+      y = 4
+      colour = "P"
+
+      expect(fake_canvas).to receive(:set_pixel).with(x,y,colour)
+      handler.parse("L #{x} #{y} #{colour}")
+    end
+  end
 end
