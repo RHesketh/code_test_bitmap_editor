@@ -222,6 +222,48 @@ describe 'Canvas' do
       imageless_subject = Canvas.new
       expect{imageless_subject.draw_horizontal_line(1, 1, 1, "A")}.not_to raise_error
     end
+
+    it "draws a line using the specified coordinates and colour" do
+      subject.draw_horizontal_line(3, 5, 2, "Z")
+
+      comparison = StringIO.new
+      comparison << "OOOOO\n"
+      comparison << "OOZZZ\n"
+      comparison << "OOOOO\n"
+      comparison << "OOOOO\n"
+      comparison << "OOOOO\n"
+      comparison << "OOOOO\n"
+
+      expect(subject.render).to eq comparison.string
+    end
+
+    it "works properly if x1 is greater than x2 but still within valid bounds" do
+      subject.draw_horizontal_line(4, 1, 6, "R")
+
+      comparison = StringIO.new
+      comparison << "OOOOO\n"
+      comparison << "OOOOO\n"
+      comparison << "OOOOO\n"
+      comparison << "OOOOO\n"
+      comparison << "OOOOO\n"
+      comparison << "RRRRO\n"
+
+      expect(subject.render).to eq comparison.string
+    end
+
+    it "works properly if x1 and x2 are the same coordinate" do
+      subject.draw_horizontal_line(4, 4, 2, "X")
+
+      comparison = StringIO.new
+      comparison << "OOOOO\n"
+      comparison << "OOOXO\n"
+      comparison << "OOOOO\n"
+      comparison << "OOOOO\n"
+      comparison << "OOOOO\n"
+      comparison << "OOOOO\n"
+
+      expect(subject.render).to eq comparison.string
+    end
   end
 
   describe "#render" do 
