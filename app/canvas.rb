@@ -24,6 +24,14 @@ class Canvas
     @image[y-1][x-1] = colour
   end
 
+  def draw_vertical_line(x,y1,y2,colour)
+    return if @image.nil?
+    raise TypeError.new("All coordinates must be integers.") unless x.is_a?(Integer) && y1.is_a?(Integer) && y2.is_a?(Integer)
+    raise ArgumentError.new("Colour must be a capital letter.") unless colour.is_a?(String) && colour.match(/\p{Upper}/)
+    raise ArgumentError.new("x coordinate must be between 1-#{@image_width}") if x < 1 || x > @image_width
+    raise ArgumentError.new("y coordinates must be between 1-#{@image_height}") if y1 < 1 || y2 < 1 || y1 > @image_height || y2 > @image_height
+  end
+
   def render
     return nil if @image.nil?
     @image.map{|row| row.join + "\n"}.join
