@@ -43,6 +43,14 @@ class Canvas
     end
   end
 
+  def draw_horizontal_line(x1,x2,y,colour)
+    return if @image.nil?
+    raise TypeError.new("All coordinates must be integers.") unless x1.is_a?(Integer) && x2.is_a?(Integer) && y.is_a?(Integer)
+    raise ArgumentError.new("Colour must be a capital letter.") unless colour.is_a?(String) && colour.match(/\p{Upper}/)
+    raise ArgumentError.new("x coordinates must be between 1-#{@image_width}") if x1 < 1 || x2 < 1 || x1 > @image_width || x2 > @image_width 
+    raise ArgumentError.new("y coordinate must be between 1-#{@image_height}") if y < 1 || y > @image_height
+  end
+
   def render
     return nil if @image.nil?
     @image.map{|row| row.join + "\n"}.join

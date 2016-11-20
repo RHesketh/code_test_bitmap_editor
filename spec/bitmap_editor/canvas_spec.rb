@@ -183,6 +183,47 @@ describe 'Canvas' do
     end
   end
 
+  describe "#draw_horizontal_line" do 
+    before(:each) do
+      subject.new_image(5, 6)
+    end
+
+    it "responds to :draw_horizontal_line" do 
+      expect(subject.respond_to?(:draw_horizontal_line)).to eq(true)
+    end
+
+    it "raises an error if any co-ordinate is less than 1" do
+      expect{subject.draw_horizontal_line( 0,  0,  0, "K")}.to raise_error(ArgumentError)
+      expect{subject.draw_horizontal_line(-1,  1,  1, "K")}.to raise_error(ArgumentError)
+      expect{subject.draw_horizontal_line( 1, -1,  1, "K")}.to raise_error(ArgumentError)
+      expect{subject.draw_horizontal_line( 1,  1, -1, "K")}.to raise_error(ArgumentError)
+    end
+
+    it "raises an error if any co-ordinate is beyond the image bounds" do
+      expect{subject.draw_horizontal_line(7, 7, 7, "K")}.to raise_error(ArgumentError)
+      expect{subject.draw_horizontal_line(7, 6, 6, "K")}.to raise_error(ArgumentError)
+      expect{subject.draw_horizontal_line(6, 7, 6, "K")}.to raise_error(ArgumentError)
+      expect{subject.draw_horizontal_line(6, 6, 7, "K")}.to raise_error(ArgumentError)
+    end
+
+    it "raises an error if any coordinates are not integers" do 
+      expect{subject.draw_horizontal_line("A",   1,   1, "K")}.to raise_error(TypeError)
+      expect{subject.draw_horizontal_line(  1, "A",   1, "K")}.to raise_error(TypeError)
+      expect{subject.draw_horizontal_line(  1,   1, "A", "K")}.to raise_error(TypeError)
+      expect{subject.draw_horizontal_line(6.6,   1,   1, "K")}.to raise_error(TypeError)
+    end
+
+    it "raises an error if the colour is not a capital letter" do 
+      expect{subject.draw_horizontal_line(1, 1, 1, "k")}.to raise_error(ArgumentError)
+      expect{subject.draw_horizontal_line(1, 1, 1, 12)}.to raise_error(ArgumentError)
+    end
+
+    it "quietly do nothing if called before an image has been created" do
+      imageless_subject = Canvas.new
+      expect{imageless_subject.draw_horizontal_line(1, 1, 1, "A")}.not_to raise_error
+    end
+  end
+
   describe "#render" do 
     it "returns a representation of the canvas as a string" do 
       subject.new_image(1,1)

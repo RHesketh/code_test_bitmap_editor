@@ -126,4 +126,29 @@ describe 'InputHandler' do
       handler.parse("V #{x} #{y1} #{y2} #{colour}")
     end
   end
+
+  # Horizontal Line command (L)
+  
+  context "When the 'horizontal line' command is given" do
+    let(:fake_canvas) { spy("Canvas") }
+    let(:handler) { InputHandler.new(fake_canvas)}
+
+    before(:each) do
+      handler.parse("I 5 5")
+    end
+
+    it "does not output anything" do
+       expect { handler.parse("H 1 2 3 G") }.to_not output.to_stdout
+    end
+
+    it "tells the canvas to draw a line using the given inputs" do
+      x1 = 1
+      x2 = 2
+      y = 3
+      colour = "G"
+
+      expect(fake_canvas).to receive(:draw_horizontal_line).with(x1,x2,y,colour)
+      handler.parse("H #{x1} #{x2} #{y} #{colour}")
+    end
+  end
 end
