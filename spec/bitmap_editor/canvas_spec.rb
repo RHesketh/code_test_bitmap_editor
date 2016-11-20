@@ -36,13 +36,13 @@ describe 'Canvas' do
       expect{subject.new_image( 1, -1)}.to raise_error(ArgumentError)
 
     end
-    it "raises an error if the canvas is more than 250 pixel wide or 250 pixels high" do 
+    it "raises an error if the canvas is more than 250 pixel wide or 250 pixels high" do
       expect{subject.new_image( 251,  251)}.to raise_error(ArgumentError)
       expect{subject.new_image(251,  5)}.to raise_error(ArgumentError)
       expect{subject.new_image( 5, 251)}.to raise_error(ArgumentError)
     end
 
-    it "raises an error if the width and height are not integers" do 
+    it "raises an error if the width and height are not integers" do
       expect{subject.new_image(1, "A")}.to raise_error(TypeError)
       expect{subject.new_image("A", 1)}.to raise_error(TypeError)
       expect{subject.new_image(6.6, 1)}.to raise_error(TypeError)
@@ -53,7 +53,7 @@ describe 'Canvas' do
     before(:each) do
       subject.new_image(5, 5)
     end
-    it "responds to :set_pixel" do 
+    it "responds to :set_pixel" do
       expect(subject.respond_to?(:set_pixel)).to eq(true)
     end
 
@@ -70,13 +70,13 @@ describe 'Canvas' do
       expect{subject.set_pixel(2, 6, "K")}.to raise_error(ArgumentError)
     end
 
-    it "raises an error if the width and height are not integers" do 
+    it "raises an error if the width and height are not integers" do
       expect{subject.set_pixel(1, "A", "K")}.to raise_error(TypeError)
       expect{subject.set_pixel("A", 1, "K")}.to raise_error(TypeError)
       expect{subject.set_pixel(6.6, 1, "K")}.to raise_error(TypeError)
     end
 
-    it "raises an error if the colour is not a capital letter" do 
+    it "raises an error if the colour is not a capital letter" do
       expect{subject.set_pixel(1, 1, "k")}.to raise_error(ArgumentError)
       expect{subject.set_pixel(1, 1, "Gk")}.to raise_error(ArgumentError)
       expect{subject.set_pixel(1, 1, 1)}.to raise_error(ArgumentError)
@@ -101,12 +101,12 @@ describe 'Canvas' do
     end
   end
 
-  describe "#draw_vertical_line" do 
+  describe "#draw_vertical_line" do
     before(:each) do
       subject.new_image(5, 6)
     end
 
-    it "responds to :draw_vertical_line" do 
+    it "responds to :draw_vertical_line" do
       expect(subject.respond_to?(:draw_vertical_line)).to eq(true)
     end
 
@@ -124,14 +124,14 @@ describe 'Canvas' do
       expect{subject.draw_vertical_line(6, 6, 7, "K")}.to raise_error(ArgumentError)
     end
 
-    it "raises an error if any coordinates are not integers" do 
+    it "raises an error if any coordinates are not integers" do
       expect{subject.draw_vertical_line("A",   1,   1, "K")}.to raise_error(TypeError)
       expect{subject.draw_vertical_line(  1, "A",   1, "K")}.to raise_error(TypeError)
       expect{subject.draw_vertical_line(  1,   1, "A", "K")}.to raise_error(TypeError)
       expect{subject.draw_vertical_line(6.6,   1,   1, "K")}.to raise_error(TypeError)
     end
 
-    it "raises an error if the colour is not a capital letter" do 
+    it "raises an error if the colour is not a capital letter" do
       expect{subject.draw_vertical_line(1, 1, 1, "kD")}.to raise_error(ArgumentError)
       expect{subject.draw_vertical_line(1, 1, 1, "k")}.to raise_error(ArgumentError)
       expect{subject.draw_vertical_line(1, 1, 1, 12)}.to raise_error(ArgumentError)
@@ -185,12 +185,12 @@ describe 'Canvas' do
     end
   end
 
-  describe "#draw_horizontal_line" do 
+  describe "#draw_horizontal_line" do
     before(:each) do
       subject.new_image(5, 6)
     end
 
-    it "responds to :draw_horizontal_line" do 
+    it "responds to :draw_horizontal_line" do
       expect(subject.respond_to?(:draw_horizontal_line)).to eq(true)
     end
 
@@ -208,14 +208,14 @@ describe 'Canvas' do
       expect{subject.draw_horizontal_line(6, 6, 7, "K")}.to raise_error(ArgumentError)
     end
 
-    it "raises an error if any coordinates are not integers" do 
+    it "raises an error if any coordinates are not integers" do
       expect{subject.draw_horizontal_line("A",   1,   1, "K")}.to raise_error(TypeError)
       expect{subject.draw_horizontal_line(  1, "A",   1, "K")}.to raise_error(TypeError)
       expect{subject.draw_horizontal_line(  1,   1, "A", "K")}.to raise_error(TypeError)
       expect{subject.draw_horizontal_line(6.6,   1,   1, "K")}.to raise_error(TypeError)
     end
 
-    it "raises an error if the colour is not a capital letter" do 
+    it "raises an error if the colour is not a capital letter" do
       expect{subject.draw_horizontal_line(1, 1, 1, "Ak")}.to raise_error(ArgumentError)
       expect{subject.draw_horizontal_line(1, 1, 1, "k")}.to raise_error(ArgumentError)
       expect{subject.draw_horizontal_line(1, 1, 1, 12)}.to raise_error(ArgumentError)
@@ -270,7 +270,7 @@ describe 'Canvas' do
   end
 
   describe "#render" do 
-    it "returns a representation of the canvas as a string" do 
+    it "returns a representation of the canvas as a string" do
       subject.new_image(1,1)
 
       expect(subject.render).to eq "O\n"

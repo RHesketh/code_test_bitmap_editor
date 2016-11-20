@@ -8,7 +8,7 @@ class Canvas
     raise ArgumentError.new("Width and height must be between #{MIN_SIZE}-#{MAX_SIZE}.") if width < MIN_SIZE || width > MAX_SIZE || height < MIN_SIZE || height > MAX_SIZE
     @image_width = width
     @image_height = height
-    
+
     @image = blank_canvas(@image_width, @image_height)
   end
 
@@ -45,7 +45,7 @@ class Canvas
     return if @image.nil?
     raise TypeError.new("All coordinates must be integers.") unless x1.is_a?(Integer) && x2.is_a?(Integer) && y.is_a?(Integer)
     raise ArgumentError.new("Colour must be a capital letter.") unless colour.is_a?(String) && colour.match(/^\p{Upper}$/)
-    raise ArgumentError.new("x coordinates must be between 1-#{@image_width}") if x1 < 1 || x2 < 1 || x1 > @image_width || x2 > @image_width 
+    raise ArgumentError.new("x coordinates must be between 1-#{@image_width}") if x1 < 1 || x2 < 1 || x1 > @image_width || x2 > @image_width
     raise ArgumentError.new("y coordinate must be between 1-#{@image_height}") if y < 1 || y > @image_height
 
     # Convert 1-indexed canvas coordinates to 0-indexed internal image coordinates

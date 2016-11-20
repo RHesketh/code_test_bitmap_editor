@@ -8,7 +8,7 @@ RSpec.configure do |config|
     mocks.verify_partial_doubles = true
   end
 
-  # Redirect stdout and stderr during rspec runs so their output doesn't show up in the results. 
+  # Redirect stdout and stderr during rspec runs so their output doesn't show up in the results.
   original_stderr = $stderr
   config.before(:all) do
     # Redirect stderr and stdout
