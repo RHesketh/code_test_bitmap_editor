@@ -78,6 +78,7 @@ describe 'Canvas' do
 
     it "raises an error if the colour is not a capital letter" do 
       expect{subject.set_pixel(1, 1, "k")}.to raise_error(ArgumentError)
+      expect{subject.set_pixel(1, 1, "Gk")}.to raise_error(ArgumentError)
       expect{subject.set_pixel(1, 1, 1)}.to raise_error(ArgumentError)
     end
 
@@ -131,6 +132,7 @@ describe 'Canvas' do
     end
 
     it "raises an error if the colour is not a capital letter" do 
+      expect{subject.draw_vertical_line(1, 1, 1, "kD")}.to raise_error(ArgumentError)
       expect{subject.draw_vertical_line(1, 1, 1, "k")}.to raise_error(ArgumentError)
       expect{subject.draw_vertical_line(1, 1, 1, 12)}.to raise_error(ArgumentError)
     end
@@ -214,6 +216,7 @@ describe 'Canvas' do
     end
 
     it "raises an error if the colour is not a capital letter" do 
+      expect{subject.draw_horizontal_line(1, 1, 1, "Ak")}.to raise_error(ArgumentError)
       expect{subject.draw_horizontal_line(1, 1, 1, "k")}.to raise_error(ArgumentError)
       expect{subject.draw_horizontal_line(1, 1, 1, 12)}.to raise_error(ArgumentError)
     end
