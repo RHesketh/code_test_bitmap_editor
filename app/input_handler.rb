@@ -1,7 +1,7 @@
 require './app/canvas'
 
 class InputHandler
-  ARGUMENT_LENGTHS = {"I" => 2, "L" => 3}
+  ARGUMENT_LENGTHS = {"I" => 2, "L" => 3, "V" => 4}
 
   def initialize(options = {})
     @canvas = options[:canvas] || Canvas.new
@@ -21,6 +21,8 @@ class InputHandler
           create_new_image(arguments)
         when "L"
           set_pixel(arguments)
+        when "V"
+          draw_vertical_line(arguments)
         end
       rescue ArgumentError => e
         $stderr.puts "Invalid argument(s): #{e.message}"
@@ -39,10 +41,19 @@ class InputHandler
   end  
 
   def set_pixel(arguments)
-    width = arguments[0].to_i
-    height = arguments[1].to_i
+    x = arguments[0].to_i
+    y = arguments[1].to_i
     colour = arguments[2]
 
-    @canvas.set_pixel(width, height, colour)
+    @canvas.set_pixel(x, y, colour)
+  end
+
+  def draw_vertical_line(arguments)
+    x = arguments[0].to_i
+    y1 = arguments[1].to_i
+    y2 = arguments[2].to_i
+    colour = arguments[3]
+
+    @canvas.draw_vertical_line(x, y1, y2, colour)
   end
 end

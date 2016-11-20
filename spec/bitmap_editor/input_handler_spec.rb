@@ -101,4 +101,29 @@ describe 'InputHandler' do
       handler.parse("L #{x} #{y} #{colour}")
     end
   end
+
+  # Vertical Line command (L)
+  
+  context "When the 'vertical line' command is given" do
+    let(:fake_canvas) { spy("Canvas") }
+    let(:handler) { InputHandler.new(fake_canvas)}
+
+    before(:each) do
+      handler.parse("I 5 5")
+    end
+
+    it "does not output anything" do
+       expect { handler.parse("V 2 1 3 T") }.to_not output.to_stdout
+    end
+
+    it "tells the canvas to draw a line using the given inputs" do
+      x = 1
+      y1 = 2
+      y2 = 3
+      colour = "P"
+
+      expect(fake_canvas).to receive(:draw_vertical_line).with(x,y1,y2,colour)
+      handler.parse("V #{x} #{y1} #{y2} #{colour}")
+    end
+  end
 end
