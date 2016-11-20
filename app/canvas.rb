@@ -3,8 +3,6 @@ class Canvas
   MAX_SIZE = 250
   BLANK_CHARACTER = "O"
 
-  @image = nil
-
   def new_image(width, height)
     raise TypeError.new("Width and height must both be integers.") unless width.is_a?(Integer) && height.is_a?(Integer)
     raise ArgumentError.new("Width and height must be between #{MIN_SIZE}-#{MAX_SIZE}.") if width < MIN_SIZE || width > MAX_SIZE || height < MIN_SIZE || height > MAX_SIZE
