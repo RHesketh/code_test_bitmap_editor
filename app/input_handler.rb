@@ -1,28 +1,28 @@
 require './app/canvas'
 
 class InputHandler
+  ARGUMENT_LENGTHS = {"I" => 2}
+
   def initialize(options = {})
     @canvas = options[:canvas] || Canvas.new
   end
 
   def parse(input)
-    begin
-      command, *arguments = input.split(" ")
+    command, *arguments = input.split(" ")
 
-      case command
-      when "I"
-        if new_image_arguments_are_invalid?(arguments)
-          $stderr.puts "ERROR: invalid argument(s)"
-          $stderr.puts "  Valid format is `I [x] [y]`"
-          $stderr.puts "  E.g. `I 5 5`"
-        else
-          create_new_image(arguments)
+    if !ARGUMENT_LENGTHS.keys.include?(command)
+      $stderr.puts "unrecognised command :("
+    elsif arguments.count != ARGUMENT_LENGTHS[command]
+      $stderr.puts "ERROR: invalid number of arguments"
+    else
+      begin
+        case command
+        when "I"
+            create_new_image(arguments)
         end
-      else
-        $stderr.puts "unrecognised command :("
+      rescue ArgumentError => e
+        $stderr.puts "Invalid argument(s): #{e.message}"
       end
-    rescue ArgumentError => e
-      $stderr.puts "Invalid argument(s): #{e.message}"
     end
   end
 
@@ -34,16 +34,5 @@ class InputHandler
     height = arguments[1].to_i
 
     @canvas.new_image(width, height)
-  end
-
-  def new_image_arguments_are_invalid?(arguments)
-    return true if arguments.length != 2
-    return true if !is_a_number?(arguments[0]) || !is_a_number?(arguments[1])
-
-    return false
-  end
-
-  def is_a_number?(argument)
-    return /\A\d+\z/.match(argument)
   end
 end
