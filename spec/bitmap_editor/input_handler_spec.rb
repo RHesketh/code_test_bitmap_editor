@@ -151,4 +151,24 @@ describe 'InputHandler' do
       handler.parse("H #{x1} #{x2} #{y} #{colour}")
     end
   end
+
+  # Show Canvas command (S)
+  
+  context "When the 'show canvas' command is given" do
+    let(:fake_canvas) { spy("Canvas") }
+    let(:handler) { InputHandler.new(fake_canvas)}
+
+    before(:each) do
+      handler.parse("I 5 5")
+    end
+
+    it "there should be screen output" do
+       expect { handler.parse("S") }.to output.to_stdout
+    end
+
+    it "tells the canvas to render the image" do
+      expect(fake_canvas).to receive(:render)
+      handler.parse("S")
+    end
+  end
 end
