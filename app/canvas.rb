@@ -30,6 +30,17 @@ class Canvas
     raise ArgumentError.new("Colour must be a capital letter.") unless colour.is_a?(String) && colour.match(/\p{Upper}/)
     raise ArgumentError.new("x coordinate must be between 1-#{@image_width}") if x < 1 || x > @image_width
     raise ArgumentError.new("y coordinates must be between 1-#{@image_height}") if y1 < 1 || y2 < 1 || y1 > @image_height || y2 > @image_height
+
+    # Convert 1-indexed canvas coordinates to 0-indexed internal image coordinates
+    line_start = [y1, y2].min - 1
+    line_end = [y1, y2].max - 1
+    column = x - 1
+
+    @image.each_with_index do |row, row_index|
+      next if row_index < line_start || row_index > line_end
+
+      @image[row_index][column] = colour
+    end
   end
 
   def render

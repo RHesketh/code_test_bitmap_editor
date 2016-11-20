@@ -139,6 +139,48 @@ describe 'Canvas' do
       imageless_subject = Canvas.new
       expect{imageless_subject.draw_vertical_line(1, 1, 1, "A")}.not_to raise_error
     end
+
+    it "draws a line using the specified coordinates and colour" do
+      subject.draw_vertical_line(2, 3, 6, "W")
+
+      comparison = StringIO.new
+      comparison << "OOOOO\n"
+      comparison << "OOOOO\n"
+      comparison << "OWOOO\n"
+      comparison << "OWOOO\n"
+      comparison << "OWOOO\n"
+      comparison << "OWOOO\n"
+
+      expect(subject.render).to eq comparison.string
+    end
+
+    it "works properly if y1 is greater than y2 but still within valid bounds" do
+      subject.draw_vertical_line(5, 6, 3, "J")
+
+      comparison = StringIO.new
+      comparison << "OOOOO\n"
+      comparison << "OOOOO\n"
+      comparison << "OOOOJ\n"
+      comparison << "OOOOJ\n"
+      comparison << "OOOOJ\n"
+      comparison << "OOOOJ\n"
+
+      expect(subject.render).to eq comparison.string
+    end
+
+    it "works properly if y1 and y2 are the same coordinate" do
+      subject.draw_vertical_line(2, 3, 3, "X")
+
+      comparison = StringIO.new
+      comparison << "OOOOO\n"
+      comparison << "OOOOO\n"
+      comparison << "OXOOO\n"
+      comparison << "OOOOO\n"
+      comparison << "OOOOO\n"
+      comparison << "OOOOO\n"
+
+      expect(subject.render).to eq comparison.string
+    end
   end
 
   describe "#render" do 
