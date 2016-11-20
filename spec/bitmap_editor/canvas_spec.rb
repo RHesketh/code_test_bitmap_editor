@@ -43,9 +43,9 @@ describe 'Canvas' do
     end
 
     it "raises an error if the width and height are not integers" do 
-      expect{subject.new_image(1, "A")}.to raise_error(ArgumentError)
-      expect{subject.new_image("A", 1)}.to raise_error(ArgumentError)
-      expect{subject.new_image(6.6, 1)}.to raise_error(ArgumentError)
+      expect{subject.new_image(1, "A")}.to raise_error(TypeError)
+      expect{subject.new_image("A", 1)}.to raise_error(TypeError)
+      expect{subject.new_image(6.6, 1)}.to raise_error(TypeError)
     end
   end
 
@@ -71,9 +71,9 @@ describe 'Canvas' do
     end
 
     it "raises an error if the width and height are not integers" do 
-      expect{subject.set_pixel(1, "A", "K")}.to raise_error(ArgumentError)
-      expect{subject.set_pixel("A", 1, "K")}.to raise_error(ArgumentError)
-      expect{subject.set_pixel(6.6, 1, "K")}.to raise_error(ArgumentError)
+      expect{subject.set_pixel(1, "A", "K")}.to raise_error(TypeError)
+      expect{subject.set_pixel("A", 1, "K")}.to raise_error(TypeError)
+      expect{subject.set_pixel(6.6, 1, "K")}.to raise_error(TypeError)
     end
 
     it "raises an error if the colour is not a capital letter" do 
