@@ -59,8 +59,9 @@ describe 'InputHandler' do
       end
     end
 
-    context "displays a meaningful error message to the user" do
-      it "outputs an error" do
+
+    context "With too many arguments" do
+      it "displays a meaningful error message to the user" do
         expect { handler.parse("I 5 5 5") }.to output(/invalid argument\(s\)/).to_stderr
       end
     end
