@@ -1,8 +1,11 @@
+require './app/input_handler'
 class BitmapEditor
 
   def run
     @running = true
     puts 'type ? for help'
+
+    input_handler = InputHandler.new
     while @running
       print '> '
       input = gets.chomp
@@ -12,7 +15,7 @@ class BitmapEditor
         when 'X'
           exit_console
         else
-          puts 'unrecognised command :('
+          input_handler.parse(input)
       end
     end
   end
